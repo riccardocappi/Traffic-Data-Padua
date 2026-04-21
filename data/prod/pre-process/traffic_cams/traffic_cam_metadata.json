@@ -1,0 +1,530 @@
+[
+  {
+    "id": "LT_5_036A_VIA ROMANA APONENSE/VIA MONSELICE VS PONTE FABBRICA",
+    "latitude": 45.367899,
+    "longitude": 11.830354,
+    "veh_count": 452261,
+    "name": "LT_5_036A_VIA ROMANA APONENSE/VIA MONSELICE VS PONTE FABBRICA",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_2_011A_VIA RENI/VIA DUPRE VS TANGENZALE/VIGODARZERE",
+    "latitude": 45.434412,
+    "longitude": 11.890841,
+    "veh_count": 325781,
+    "name": "LT_2_011A_VIA RENI/VIA DUPRE VS TANGENZALE/VIGODARZERE",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_2_003B_LT VIA PONTEVIGODARZERE VS VIGODARZERE",
+    "latitude": 45.446143,
+    "longitude": 11.893692,
+    "veh_count": 631364,
+    "name": "LT_2_003B_LT VIA PONTEVIGODARZERE VS VIGODARZERE",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "LT_2_009A_LT CAMERINI VS ROTATORIA CAVALCAVIA CAMERINI",
+    "latitude": 45.426472,
+    "longitude": 11.872329,
+    "veh_count": 560133,
+    "name": "LT_2_009A_LT CAMERINI VS ROTATORIA CAVALCAVIA CAMERINI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_005-1_VIA MONTA SOTTO CORSO AUSTRALIA VS GALDIOLO",
+    "latitude": 45.421875,
+    "longitude": 11.857033,
+    "veh_count": 496049,
+    "name": "LT_5_005-1_VIA MONTA SOTTO CORSO AUSTRALIA VS GALDIOLO",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "SITO15-ROTONDAGRASSI",
+    "latitude": 45.413738,
+    "longitude": 11.902558,
+    "veh_count": 659067,
+    "name": "SITO15-ROTONDAGRASSI",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_2_007B_LT PLEBISCITO-VIOTTI VS VIA PLEBISCITO 1866",
+    "latitude": 45.425104,
+    "longitude": 11.900162,
+    "veh_count": 739214,
+    "name": "LT_2_007B_LT PLEBISCITO-VIOTTI VS VIA PLEBISCITO 1866",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_5_012_A_LT GOITO VS CERNAIA/GOITO (SARACINESCA)",
+    "latitude": 45.392113,
+    "longitude": 11.866687,
+    "veh_count": 379887,
+    "name": "LT_5_012_A_LT GOITO VS CERNAIA/GOITO (SARACINESCA)",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_3_002C_ROTONDA GRASSI - MARONCELLI CORSIA SINISTRA VS GRASSI/FRIBURGO",
+    "latitude": 45.415476,
+    "longitude": 11.902462,
+    "veh_count": 519435,
+    "name": "LT_3_002C_ROTONDA GRASSI - MARONCELLI CORSIA SINISTRA VS GRASSI/FRIBURGO",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_3_002B_ROTONDA GRASSI - MARONCELLI CORSIA DESTRA VS GRASSI/FRIBURGO",
+    "latitude": 45.41547,
+    "longitude": 11.902549,
+    "veh_count": 390893,
+    "name": "LT_3_002B_ROTONDA GRASSI - MARONCELLI CORSIA DESTRA VS GRASSI/FRIBURGO",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_2_009B_LT CAMERINI VS ROTATORIA ANNIBALE DA BASSANO",
+    "latitude": 45.42644,
+    "longitude": 11.872152,
+    "veh_count": 472604,
+    "name": "LT_2_009B_LT CAMERINI VS ROTATORIA ANNIBALE DA BASSANO",
+    "reg_dir": "Tutte,SudOvest,NordEst"
+  },
+  {
+    "id": "LT_6_002B_LT PO-CIGNAROLI VS PADOVA",
+    "latitude": 45.433663,
+    "longitude": 11.869484,
+    "veh_count": 585483,
+    "name": "LT_6_002B_LT PO-CIGNAROLI VS PADOVA",
+    "reg_dir": "Tutte,SudEst,NordOvest"
+  },
+  {
+    "id": "SITO2-VIAPOCIGNAROLI",
+    "latitude": 45.433716,
+    "longitude": 11.869574,
+    "veh_count": 492065,
+    "name": "SITO2-VIAPOCIGNAROLI",
+    "reg_dir": "Tutte,SudEst,NordOvest"
+  },
+  {
+    "id": "LT_2_005B-1_ROT PLEBISCITO/GEREMIA VS VIA CALLEGARI",
+    "latitude": 45.434708,
+    "longitude": 11.896875,
+    "veh_count": 185820,
+    "name": "LT_2_005B-1_ROT PLEBISCITO/GEREMIA VS VIA CALLEGARI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_2_008C_VIA AVANZO CORSIA DESTRA VS VIA PLEBISCITO 1866",
+    "latitude": 45.419475,
+    "longitude": 11.896446,
+    "veh_count": 577047,
+    "name": "LT_2_008C_VIA AVANZO CORSIA DESTRA VS VIA PLEBISCITO 1866",
+    "reg_dir": "Tutte,EstOvest,OvestEst"
+  },
+  {
+    "id": "LT_2_008B_VIA AVANZO CORSIA SINISTRA VS VIA PLEBISCITO 1866",
+    "latitude": 45.419517,
+    "longitude": 11.896434,
+    "veh_count": 522424,
+    "name": "LT_2_008B_VIA AVANZO CORSIA SINISTRA VS VIA PLEBISCITO 1866",
+    "reg_dir": "Tutte,EstOvest,OvestEst"
+  },
+  {
+    "id": "SITO11-ADABASSANO",
+    "latitude": 45.425569,
+    "longitude": 11.872008,
+    "veh_count": 275576,
+    "name": "SITO11-ADABASSANO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_5_012_B_LT GOITO VS BASSANELLO",
+    "latitude": 45.391924,
+    "longitude": 11.866609,
+    "veh_count": 480993,
+    "name": "LT_5_012_B_LT GOITO VS BASSANELLO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_2_010B_LT VIANELLO-BUONARROTI VS ROTONDA BUONARROTI",
+    "latitude": 45.427622,
+    "longitude": 11.879039,
+    "veh_count": 371699,
+    "name": "LT_2_010B_LT VIANELLO-BUONARROTI VS ROTONDA BUONARROTI",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "SITO10-VIAURUGUAYCILE",
+    "latitude": 45.403109,
+    "longitude": 11.929485,
+    "veh_count": 507740,
+    "name": "SITO10-VIAURUGUAYCILE",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_4_007A_LT BEMBO TANGENZIALE CORSIA SINISTRA VS PADOVA",
+    "latitude": 45.368688,
+    "longitude": 11.889747,
+    "veh_count": 538540,
+    "name": "LT_4_007A_LT BEMBO TANGENZIALE CORSIA SINISTRA VS PADOVA",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_4_006B_LT PONTE 4 MARTIRI VS PADOVA CENTRO",
+    "latitude": 45.384567,
+    "longitude": 11.88239,
+    "veh_count": 753926,
+    "name": "LT_4_006B_LT PONTE 4 MARTIRI VS PADOVA CENTRO",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_4_004B_ROTAT. GUIZZA_SALBORO_DELEDDA VS PADOVA",
+    "latitude": 45.366415,
+    "longitude": 11.871658,
+    "veh_count": 555888,
+    "name": "LT_4_004B_ROTAT. GUIZZA_SALBORO_DELEDDA VS PADOVA",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_4_007C_LT BEMBO TANGENZIALE CORSIA SINISTRA VS SALBORO",
+    "latitude": 45.368329,
+    "longitude": 11.889788,
+    "veh_count": 378526,
+    "name": "LT_4_007C_LT BEMBO TANGENZIALE CORSIA SINISTRA VS SALBORO",
+    "reg_dir": ""
+  },
+  {
+    "id": "LT_4_007D_LT BEMBO TANGENZIALE CORSIA DESTRA VS SALBORO",
+    "latitude": 45.36835,
+    "longitude": 11.889705,
+    "veh_count": 374633,
+    "name": "LT_4_007D_LT BEMBO TANGENZIALE CORSIA DESTRA VS SALBORO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "SITO14-ROTONDAPLEBISCITO",
+    "latitude": 45.425369,
+    "longitude": 11.900444,
+    "veh_count": 574587,
+    "name": "SITO14-ROTONDAPLEBISCITO",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_2_006A_ROT PLEBISCITO/CALLEGARI VS ROTATORIA VIA DEL PLEBISCITO",
+    "latitude": 45.4303,
+    "longitude": 11.89869,
+    "veh_count": 500613,
+    "name": "LT_2_006A_ROT PLEBISCITO/CALLEGARI VS ROTATORIA VIA DEL PLEBISCITO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_5_036B_VIA ROMANA APONENSE/VIA MONSELICE VS PADOVA",
+    "latitude": 45.367962,
+    "longitude": 11.830846,
+    "veh_count": 502027,
+    "name": "LT_5_036B_VIA ROMANA APONENSE/VIA MONSELICE VS PADOVA",
+    "reg_dir": "Tutte,EstOvest,OvestEst"
+  },
+  {
+    "id": "LT_5_005-2_VIA MONTA SOTTO CORSO AUSTRALIA VS PADOVA",
+    "latitude": 45.421557,
+    "longitude": 11.857357,
+    "veh_count": 328464,
+    "name": "LT_5_005-2_VIA MONTA SOTTO CORSO AUSTRALIA VS PADOVA",
+    "reg_dir": "Tutte,SudEst,NordOvest"
+  },
+  {
+    "id": "LT_2_007A_LT PLEBISCITO-VIOTTI VS VIA VECELLIO",
+    "latitude": 45.425152,
+    "longitude": 11.900083,
+    "veh_count": 351640,
+    "name": "LT_2_007A_LT PLEBISCITO-VIOTTI VS VIA VECELLIO",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_2_006B_ROT PLEBISCITO/CALLEGARI VS VIA TIZIANO ASPETTI",
+    "latitude": 45.430328,
+    "longitude": 11.898653,
+    "veh_count": 178490,
+    "name": "LT_2_006B_ROT PLEBISCITO/CALLEGARI VS VIA TIZIANO ASPETTI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_4_006C_LT PONTE 4 MARTIRI VS PONTE VOLTABAROZZO",
+    "latitude": 45.384535,
+    "longitude": 11.882517,
+    "veh_count": 184840,
+    "name": "LT_4_006C_LT PONTE 4 MARTIRI VS PONTE VOLTABAROZZO",
+    "reg_dir": "Tutte,EstOvest,OvestEst"
+  },
+  {
+    "id": "LT_4_004A_ROTAT. GUIZZA_SALBORO_DELEDDA VS PALAZZETTO",
+    "latitude": 45.366245,
+    "longitude": 11.871568,
+    "veh_count": 468441,
+    "name": "LT_4_004A_ROTAT. GUIZZA_SALBORO_DELEDDA VS PALAZZETTO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_4_006D_LT PONTE 4 MARTIRI VS SALBORO",
+    "latitude": 45.384339,
+    "longitude": 11.88245,
+    "veh_count": 323009,
+    "name": "LT_4_006D_LT PONTE 4 MARTIRI VS SALBORO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_3_006B_LT TURAZZA-BIRI CORSIA CENTRALE VS PIAZZALE STANGA",
+    "latitude": 45.408596,
+    "longitude": 11.902455,
+    "veh_count": 190873,
+    "name": "LT_3_006B_LT TURAZZA-BIRI CORSIA CENTRALE VS PIAZZALE STANGA",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "LT_3_006C_LT TURAZZA-BIRI CORSIA SINISTRA VS PIAZZALE STANGA",
+    "latitude": 45.40857,
+    "longitude": 11.902427,
+    "veh_count": 96896,
+    "name": "LT_3_006C_LT TURAZZA-BIRI CORSIA SINISTRA VS PIAZZALE STANGA",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "LT_6_001B_LT ALTICHIERO-LEOGRA VS LIMENA",
+    "latitude": 45.447012,
+    "longitude": 11.872042,
+    "veh_count": 252761,
+    "name": "LT_6_001B_LT ALTICHIERO-LEOGRA VS LIMENA",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "LT_4_003C_PONTEVOLTABAROZZO VS PONTE SAN NICOLO",
+    "latitude": 45.383295,
+    "longitude": 11.900202,
+    "veh_count": 417923,
+    "name": "LT_4_003C_PONTEVOLTABAROZZO VS PONTE SAN NICOLO",
+    "reg_dir": "Tutte,SudEst,NordOvest"
+  },
+  {
+    "id": "SITO12-ALTICHIERO",
+    "latitude": 45.447238,
+    "longitude": 11.871925,
+    "veh_count": 175664,
+    "name": "SITO12-ALTICHIERO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_2_008D_VIA AVANZO CORSIA SINISTRA VS VICOLO ASPETTI",
+    "latitude": 45.419579,
+    "longitude": 11.89629,
+    "veh_count": 478785,
+    "name": "LT_2_008D_VIA AVANZO CORSIA SINISTRA VS VICOLO ASPETTI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "SITO13-PONTEVIGODARZERE",
+    "latitude": 45.445876,
+    "longitude": 11.893586,
+    "veh_count": 343402,
+    "name": "SITO13-PONTEVIGODARZERE",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_4_006A_LT PONTE 4 MARTIRI VS GUIZZA PONTE GASPARINI",
+    "latitude": 45.384601,
+    "longitude": 11.882218,
+    "veh_count": 316306,
+    "name": "LT_4_006A_LT PONTE 4 MARTIRI VS GUIZZA PONTE GASPARINI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_2_010A_LT VIANELLO-GIUCCIARDINI VS CAVALCAVIA CAMERINI",
+    "latitude": 45.427622,
+    "longitude": 11.879039,
+    "veh_count": 351133,
+    "name": "LT_2_010A_LT VIANELLO-GIUCCIARDINI VS CAVALCAVIA CAMERINI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_3_001B_LT URUGUAY-CILE VS ROTATORIA CILE/VIGONOVESE/URUGUAY",
+    "latitude": 45.403108,
+    "longitude": 11.929486,
+    "veh_count": 423828,
+    "name": "LT_3_001B_LT URUGUAY-CILE VS ROTATORIA CILE/VIGONOVESE/URUGUAY",
+    "reg_dir": "Tutte,EstOvest,OvestEst"
+  },
+  {
+    "id": "LT_2_005B-2_ROT PLEBISCITO/GEREMIA VS VIA DEL PLEBISCITO",
+    "latitude": 45.43472,
+    "longitude": 11.896912,
+    "veh_count": 146291,
+    "name": "LT_2_005B-2_ROT PLEBISCITO/GEREMIA VS VIA DEL PLEBISCITO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_2_005A-2_ROT PLEBISCITO/GEREMIA LATO DESTRO VS VIGODARZERE/TANGENZIALE",
+    "latitude": 45.434988,
+    "longitude": 11.897194,
+    "veh_count": 494106,
+    "name": "LT_2_005A-2_ROT PLEBISCITO/GEREMIA LATO DESTRO VS VIGODARZERE/TANGENZIALE",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_2_005A-1_ROT PLEBISCITO/GEREMIA LATO SINISTRO VS VIGODARZERE/TANGENZIALE",
+    "latitude": 45.434977,
+    "longitude": 11.89712,
+    "veh_count": 230850,
+    "name": "LT_2_005A-1_ROT PLEBISCITO/GEREMIA LATO SINISTRO VS VIGODARZERE/TANGENZIALE",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_6_004B_LT VIA MONTA-BISCIA VS GALDIOLO",
+    "latitude": 45.431505,
+    "longitude": 11.84285,
+    "veh_count": 249142,
+    "name": "LT_6_004B_LT VIA MONTA-BISCIA VS GALDIOLO",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "SITO1-VIAPLEBISCITO",
+    "latitude": 45.437367,
+    "longitude": 11.893776,
+    "veh_count": 200078,
+    "name": "SITO1-VIAPLEBISCITO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_2_011B_VIA RENI/VIA DUPRE VS CAVALCAVIA BORGOMAGNO/CENTRO STORICO",
+    "latitude": 45.433868,
+    "longitude": 11.890403,
+    "veh_count": 303078,
+    "name": "LT_2_011B_VIA RENI/VIA DUPRE VS CAVALCAVIA BORGOMAGNO/CENTRO STORICO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_3_006D_LT TURAZZA-BIRI VS VIA BOCCACCIO/VIA VIGONOVESE",
+    "latitude": 45.408439,
+    "longitude": 11.902556,
+    "veh_count": 124434,
+    "name": "LT_3_006D_LT TURAZZA-BIRI VS VIA BOCCACCIO/VIA VIGONOVESE",
+    "reg_dir": "Tutte,SudEst,NordOvest"
+  },
+  {
+    "id": "LT_3_006A_LT TURAZZA-BIRI CORSIA DESTRA VS PIAZZALE STANGA",
+    "latitude": 45.408634,
+    "longitude": 11.902492,
+    "veh_count": 194864,
+    "name": "LT_3_006A_LT TURAZZA-BIRI CORSIA DESTRA VS PIAZZALE STANGA",
+    "reg_dir": "Tutte,NordOvest,SudEst"
+  },
+  {
+    "id": "SITO9-PONTEVOLTABAROZZO",
+    "latitude": 45.383513,
+    "longitude": 11.900198,
+    "veh_count": 354783,
+    "name": "SITO9-PONTEVOLTABAROZZO",
+    "reg_dir": "Tutte,SudOvest,NordEst"
+  },
+  {
+    "id": "LT_4_003B_PONTEVOLTABAROZZO VS PONTE IV MARTIRI",
+    "latitude": 45.383628,
+    "longitude": 11.899753,
+    "veh_count": 186304,
+    "name": "LT_4_003B_PONTEVOLTABAROZZO VS PONTE IV MARTIRI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_4_007B_LT BEMBO TANGENZIALE CORSIA DESTRA VS PADOVA",
+    "latitude": 45.368552,
+    "longitude": 11.889722,
+    "veh_count": 58047,
+    "name": "LT_4_007B_LT BEMBO TANGENZIALE CORSIA DESTRA VS PADOVA",
+    "reg_dir": "Tutte,NordSud,SudNord"
+  },
+  {
+    "id": "LT_6_006A",
+    "latitude": 45.428061,
+    "longitude": 11.856746,
+    "veh_count": 38559,
+    "name": "LT_6_006A",
+    "reg_dir": ""
+  },
+  {
+    "id": "LT_6_006B",
+    "latitude": 45.428072,
+    "longitude": 11.856684,
+    "veh_count": 21419,
+    "name": "LT_6_006B",
+    "reg_dir": ""
+  },
+  {
+    "id": "LT_2_008A_VIA AVANZO CORSIA SINISTRA VS VICOLO ASPETTI",
+    "latitude": 45.419532,
+    "longitude": 11.896293,
+    "veh_count": 68638,
+    "name": "LT_2_008A_VIA AVANZO CORSIA SINISTRA VS VICOLO ASPETTI",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  },
+  {
+    "id": "LT_5_003B-1_LT ADRIATICA VS MANDRIOLA",
+    "latitude": 45.384848,
+    "longitude": 11.863006,
+    "veh_count": 300159,
+    "name": "LT_5_003B-1_LT ADRIATICA VS MANDRIOLA",
+    "reg_dir": "Tutte,SudOvest,NordEst"
+  },
+  {
+    "id": "LT_5_003A-2_LT ADRIATICA CORSIA CENTRALE VS BASSANELLO/CAVALLOTTI",
+    "latitude": 45.384959,
+    "longitude": 11.863439,
+    "veh_count": 131014,
+    "name": "LT_5_003A-2_LT ADRIATICA CORSIA CENTRALE VS BASSANELLO/CAVALLOTTI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_003A-1_LT ADRIATICA CORSIA DESTRA VS BASSANELLO/CAVALLOTTI",
+    "latitude": 45.384963,
+    "longitude": 11.863527,
+    "veh_count": 308170,
+    "name": "LT_5_003A-1_LT ADRIATICA CORSIA DESTRA VS BASSANELLO/CAVALLOTTI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_003B-2_LT ADRIATICA VS PALAZZETTO/SALBORO",
+    "latitude": 45.384757,
+    "longitude": 11.863269,
+    "veh_count": 174086,
+    "name": "LT_5_003B-2_LT ADRIATICA VS PALAZZETTO/SALBORO",
+    "reg_dir": "Tutte,SudNord,NordSud"
+  },
+  {
+    "id": "LT_5_003A-3_LT ADRIATICA CORSIA SINISTRA VS BASSANELLO/CAVALLOTTI",
+    "latitude": 45.385012,
+    "longitude": 11.863435,
+    "veh_count": 128243,
+    "name": "LT_5_003A-3_LT ADRIATICA CORSIA SINISTRA VS BASSANELLO/CAVALLOTTI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_002-2_LT VITTORIO VENETO CORSIA DESTRA VS STRADA ADRIATICA/PONTE GASPERINI",
+    "latitude": 45.385644,
+    "longitude": 11.863781,
+    "veh_count": 317156,
+    "name": "LT_5_002-2_LT VITTORIO VENETO CORSIA DESTRA VS STRADA ADRIATICA/PONTE GASPERINI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_002-1_LT VITTORIO VENETO CORSIA SINISTRA VS STRADA ADRIATICA/PONTE GASPERINI",
+    "latitude": 45.3857,
+    "longitude": 11.863741,
+    "veh_count": 195118,
+    "name": "LT_5_002-1_LT VITTORIO VENETO CORSIA SINISTRA VS STRADA ADRIATICA/PONTE GASPERINI",
+    "reg_dir": "Tutte,NordEst,SudOvest"
+  },
+  {
+    "id": "LT_5_002-3_LT VITTORIO VENETO VS MANDRIOLA",
+    "latitude": 45.385661,
+    "longitude": 11.863344,
+    "veh_count": 366293,
+    "name": "LT_5_002-3_LT VITTORIO VENETO VS MANDRIOLA",
+    "reg_dir": "Tutte,OvestEst,EstOvest"
+  }
+]

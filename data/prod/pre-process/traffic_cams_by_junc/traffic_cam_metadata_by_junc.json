@@ -1,0 +1,242 @@
+[
+  {
+    "id": "agg_0",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.36793050087136,
+    "longitude": 11.83060000680368
+  },
+  {
+    "id": "agg_10",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.4347080008615,
+    "longitude": 11.896875006785532
+  },
+  {
+    "id": "agg_11",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.41952575086295,
+    "longitude": 11.896365756783792
+  },
+  {
+    "id": "agg_28",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.42762200086315,
+    "longitude": 11.879039006791817
+  },
+  {
+    "id": "agg_14",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.40310850086266,
+    "longitude": 11.929485506768337
+  },
+  {
+    "id": "agg_22",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.38456800086697,
+    "longitude": 11.882367506784952
+  },
+  {
+    "id": "agg_21",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.43032800086181,
+    "longitude": 11.898653006784256
+  },
+  {
+    "id": "agg_34",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.38362800086608,
+    "longitude": 11.89975300677782
+  },
+  {
+    "id": "agg_39",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.38566100086791,
+    "longitude": 11.863344006792754
+  },
+  {
+    "id": "agg_20",
+    "reg_dir": "EstOvest,OvestEst,Tutte",
+    "latitude": 45.425152000862205,
+    "longitude": 11.900083006783015
+  },
+  {
+    "id": "agg_33",
+    "reg_dir": "NordEst,SudOvest,Tutte",
+    "latitude": 45.38351300086608,
+    "longitude": 11.900198006777629
+  },
+  {
+    "id": "agg_36",
+    "reg_dir": "NordEst,SudOvest,Tutte",
+    "latitude": 45.38494550086797,
+    "longitude": 11.863351756792659
+  },
+  {
+    "id": "agg_38",
+    "reg_dir": "NordEst,SudOvest,Tutte",
+    "latitude": 45.38567200086788,
+    "longitude": 11.863761006792588
+  },
+  {
+    "id": "agg_3",
+    "reg_dir": "NordEst,SudOvest,Tutte",
+    "latitude": 45.42645600086363,
+    "longitude": 11.872240506794403
+  },
+  {
+    "id": "agg_23",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.40855975086363,
+    "longitude": 11.902482506779918
+  },
+  {
+    "id": "agg_2",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.44614300086064,
+    "longitude": 11.893692006788292
+  },
+  {
+    "id": "agg_24",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.447012000861726,
+    "longitude": 11.872042006797129
+  },
+  {
+    "id": "agg_25",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.38329500086609,
+    "longitude": 11.900202006777599
+  },
+  {
+    "id": "agg_30",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.43150500086479,
+    "longitude": 11.842850006806897
+  },
+  {
+    "id": "agg_4",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.4217160008649,
+    "longitude": 11.857195006799861
+  },
+  {
+    "id": "agg_9",
+    "reg_dir": "NordOvest,SudEst,Tutte",
+    "latitude": 45.43368950086311,
+    "longitude": 11.869529006796421
+  },
+  {
+    "id": "agg_1",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.434412000861876,
+    "longitude": 11.890841006787928
+  },
+  {
+    "id": "agg_29",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.43489500086148,
+    "longitude": 11.897075340118812
+  },
+  {
+    "id": "agg_12",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.42556900086374,
+    "longitude": 11.872008006794381
+  },
+  {
+    "id": "agg_13",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.42762200086315,
+    "longitude": 11.879039006791817
+  },
+  {
+    "id": "agg_15",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.36853000086803,
+    "longitude": 11.889724673446596
+  },
+  {
+    "id": "agg_16",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.38445300086697,
+    "longitude": 11.882420006784914
+  },
+  {
+    "id": "agg_17",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.36633000086924,
+    "longitude": 11.871613006786946
+  },
+  {
+    "id": "agg_19",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.43030000086183,
+    "longitude": 11.89869000678424
+  },
+  {
+    "id": "agg_27",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.44587600086064,
+    "longitude": 11.893586006788297
+  },
+  {
+    "id": "agg_26",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.44723800086172,
+    "longitude": 11.8719250067972
+  },
+  {
+    "id": "agg_31",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.43736700086143,
+    "longitude": 11.893776006787123
+  },
+  {
+    "id": "agg_32",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.43386800086194,
+    "longitude": 11.890403006788041
+  },
+  {
+    "id": "agg_37",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.38475700086799,
+    "longitude": 11.863269006792672
+  },
+  {
+    "id": "agg_5",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.41373800086314,
+    "longitude": 11.902558006780556
+  },
+  {
+    "id": "agg_6",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.4252365008622,
+    "longitude": 11.900303006782941
+  },
+  {
+    "id": "agg_7",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.39201850086715,
+    "longitude": 11.86664800679224
+  },
+  {
+    "id": "agg_8",
+    "reg_dir": "NordSud,SudNord,Tutte",
+    "latitude": 45.41547300086299,
+    "longitude": 11.902505506780795
+  },
+  {
+    "id": "agg_18",
+    "reg_dir": "",
+    "latitude": 45.36832900086806,
+    "longitude": 11.889788006779877
+  },
+  {
+    "id": "agg_35",
+    "reg_dir": "",
+    "latitude": 45.42806650086433,
+    "longitude": 11.856715006800869
+  }
+]

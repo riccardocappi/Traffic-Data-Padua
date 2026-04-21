@@ -1,0 +1,2 @@
+*.csv filter=lfs diff=lfs merge=lfs -text
+data/prod/pre-process/road_network/osmnx.graphml filter=lfs diff=lfs merge=lfs -text
