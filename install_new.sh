@@ -22,11 +22,3 @@ pip install seaborn
 pip install scikit-learn
 pip install geopy
 pip install statsmodels
-
-git clone https://github.com/google-research/timesfm.git
-cd timesfm
-
-pip install flax --no-deps
-pip install "jax[cpu]" --no-deps
-
-pip install lancedb
