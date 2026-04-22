@@ -3,7 +3,6 @@ import pandas as pd
 import geopandas as gpd
 import torch
 import numpy as np
-from tsl.datasets import MetrLA, PemsBay
 from scripts.get_adj_matrix import get_adj_matrix, networkx_to_gdfs
 import os
 from sklearn.neighbors import BallTree
@@ -12,22 +11,67 @@ import json
 from shapely.geometry import LineString
 
 
-
-sources = set(["metrla", "pemsbay", "pd"])
-
 class TrafficData(SpatioTemporalData):
+    """
+        TrafficData
+        ===========
+
+        Concrete subclass of :class:`SpatioTemporalData` for urban traffic-flow
+        forecasting.  Reads sensor measurements, spatial metadata, and contextual
+        features from local CSV / Shapefile / GraphML sources, constructs a graph,
+        and assembles a ready-to-use PyG dataset.
+
+        Parameters
+        ----------
+        root : str
+            Root directory for raw and processed data storage.
+        name : str
+            Dataset identifier (used for processed-file naming).
+        device : str, optional
+            PyTorch device string. Default: ``'cpu'``.
+        history : int, optional
+            Input sequence length (number of 5-min intervals). Default: ``12``
+            (≈ 1 hour).
+        horizon : int, optional
+            Forecast horizon (number of 5-min intervals). Default: ``12``.
+        stride : int, optional
+            Window stride. Default: ``1``.
+        zero_run_threshold : int, optional
+            Consecutive zeros that trigger a masking event in the validity mask.
+            Sensor readings showing ``>= zero_run_threshold`` consecutive zeros are
+            assumed to represent sensor inactivity and are masked out.
+            Default: ``12``.
+        flow_adj : bool, optional
+            If ``True``, build the graph from vehicle-flow transition probabilities
+            (or average travel times); if ``False``, fall back to road-network
+            proximity. Default: ``True``.
+        dyn_adj : bool, optional
+            If ``True``, use time-varying (hourly) adjacency matrices derived from
+            hourly transition probabilities. Requires ``flow_adj=True``.
+            Default: ``False``.
+        flow_threshold : float, optional
+            Minimum transition probability ``P_ij`` for an edge to be included when
+            using flow-based adjacency. Default: ``0.0``.
+        use_avg_travel_times : bool, optional
+            If ``True``, use mean travel time as the edge weight instead of the
+            transition probability ``P_ij``. Default: ``False``.
+        nan_values_handling : {'zero', 'rm'}, optional
+            Strategy for missing sensor readings.
+
+            * ``'zero'`` - Replace NaN with 0.
+            * ``'rm'``   - Drop any time step that contains at least one NaN.
+
+            Default: ``'zero'``.
+    """
     def __init__(
         self, 
         root, 
         name,
-        data_source_name="pd", 
         device='cpu', 
         history=12, 
         horizon=12, 
         stride=1,
         zero_run_threshold = 12,
-        traffic_cam_data = True,
-        loops_data = False,
         flow_adj = True,
         dyn_adj = False,
         flow_threshold = 0.0,
@@ -36,35 +80,21 @@ class TrafficData(SpatioTemporalData):
     ):
 
         self.zero_run_threshold = zero_run_threshold
-        # assert flow_adj or not dyn_adj, "Dynamic adjacency is only supported with flow adjacency."
         
-        # if (flow_adj or dyn_adj) and (data_source_name != "pd"):
-        #     logging.warning("Flow topology and dynamic topology are only available for Padua data.")
-        
-        # assert traffic_cam_data  or loops_data, "At least one data source must be selected among traffic cameras, ZTL sensors, and loops."
-        
-        assert traffic_cam_data and (not loops_data), "Loops data unavailable for now"
         assert nan_values_handling in ["zero", "rm"], "nan_values_handling must be either 'zero' (replace NaNs with zeros) or 'rm' (remove rows with NaNs)."
         
         self.nan_values_handling = nan_values_handling
-        self.use_traffic_cams = traffic_cam_data
-        self.use_loops = loops_data
         self.flow_threshold = flow_threshold
         self.use_avg_travel_times = use_avg_travel_times
         
         self.flow_adj = flow_adj
         self.dyn_adj = dyn_adj
         
-        assert data_source_name in sources, "Not supported dataset"
-        self.data_source = data_source_name
         super().__init__(root, name, device, history, horizon, stride)
     
     
     def get_raw_data(self):
-        if self.data_source == "pd":
-            return self.get_raw_data_pd()
-        else:
-            return self.get_raw_data_other()
+        return self.get_raw_data_pd()
         
         
     def get_raw_data_pd(self):
@@ -164,65 +194,19 @@ class TrafficData(SpatioTemporalData):
                 last_edge_attr = current_edge_attr
         
         return adj, X, mask, X_static, prec_by_time, timestamps
-    
-    
-    def get_raw_data_other(self):
-        # Get raw data from other sources (METR-LA, Pemsbay, etc)
-        metadata_path = os.path.join(self.root, self.data_source)
-        if self.data_source == "metrla":
-            dataset = MetrLA(metadata_path, impute_zeros=False)
-        elif self.data_source == "pemsbay":
-            dataset = PemsBay(metadata_path)
-        else:
-            raise NotImplementedError()
-        
-        edge_index, edge_attr = dataset.get_connectivity(threshold=0.1,include_self=False,normalize_axis=1,layout="edge_index")
-        
-        df = dataset.dataframe()
-        raw_data = torch.from_numpy(df.values).unsqueeze(-1)    # shape (T, N, 1)
-        
-        edge_index = torch.from_numpy(edge_index)
-        edge_attr = torch.from_numpy(edge_attr)
-        
-        timestamps = pd.to_datetime(df.index)
-        
-        # TODO: Compute mask ??
-        
-        return (edge_index, edge_attr), raw_data, None, torch.tensor([]), None, timestamps
         
     
     def get_sensors_data(self):
-        file_list = []
-        
-        if self.use_traffic_cams:
-            file_list.append((
-                "./data/prod/pre-process/traffic_cams_by_junc/pd_time_series_group_by_junc.csv",
-                "./data/prod/pre-process/traffic_cams_by_junc/gpd/traffic_cam_metadata_by_junc.shp",
-                "./data/prod/pre-process/traffic_cams_by_junc/traffic_cam_metadata_by_junc.json"
-            ))
-        if self.use_loops:
-            file_list.append((
-                "./data/prod/pre-process/loops/pd_time_series_loops.csv",
-                "./data/prod/pre-process/loops/gpd/loops_metadata.shp",
-                "./data/prod/pre-process/loops/loops_metadata.json"
-            ))
-        
-        assert len(file_list) > 0, "No data source selected."
-        
-        time_series_df = pd.DataFrame()
-        meta_gdf = gpd.GeoDataFrame()
-        meta_json = []
-        
-        for f_time_series, f_shp, f_json in file_list:
-            times_df = pd.read_csv(f_time_series, index_col=0)
-            times_df.index = pd.to_datetime(times_df.index, utc=True).tz_convert("Europe/Rome")
-            meta = gpd.read_file(f_shp)
-            with open(f_json, "r") as f:
-                meta_j = json.load(f)
-            time_series_df = pd.concat([time_series_df, times_df], axis=1)
-            meta_gdf = pd.concat([meta_gdf, meta], ignore_index=True)
-            meta_json.extend(meta_j)
-        
+        f_time_series = "./data/prod/pre-process/traffic_cams_by_junc/pd_time_series_group_by_junc.csv"
+        f_shp = "./data/prod/pre-process/traffic_cams_by_junc/gpd/traffic_cam_metadata_by_junc.shp"
+        f_json = "./data/prod/pre-process/traffic_cams_by_junc/traffic_cam_metadata_by_junc.json"
+
+        time_series_df = pd.read_csv(f_time_series, index_col=0)
+        time_series_df.index = pd.to_datetime(time_series_df.index, utc=True).tz_convert("Europe/Rome")
+        meta_gdf = gpd.read_file(f_shp)
+        with open(f_json, "r") as f:
+            meta_json = json.load(f)
+
         return time_series_df, meta_gdf, meta_json
     
     

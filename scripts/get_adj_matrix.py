@@ -179,32 +179,3 @@ def get_adj_matrix(traffic_cams, distance_threshold_km = 2, distance_type = "geo
     return A, G
 
 
-def get_flow_based_adj(traffic_cams, transition_probs_df, avg_travel_times_df, acceptance_threshold=0.01, src_col="junctions", dst_col="dst", prob_col="P_ij"):
-    nodes = [(cam['id'], {k:v for k, v in cam.items() if k != "id"}) for cam in traffic_cams]
-    
-    G = nx.DiGraph()
-    G.add_nodes_from(nodes)
-    
-    for i in range(len(nodes)):
-        for j in range(len(nodes)):
-            if i == j:
-                continue
-            id1, _ = nodes[i]
-            id2, _ = nodes[j]
-            
-            prob = transition_probs_df[
-                (transition_probs_df[src_col] == id1) & 
-                (transition_probs_df[dst_col] == id2)
-            ][prob_col]
-            
-            if not prob.empty and prob.values[0] >= acceptance_threshold:
-                G.add_edge(id1, id2, weight=prob.values[0])
-    
-    
-    nodelist = [cam['id'] for cam in traffic_cams]
-    A = nx.to_numpy_array(G, nodelist=nodelist)
-    
-    return A, G
-
-
-

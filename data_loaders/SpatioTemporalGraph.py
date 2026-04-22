@@ -7,6 +7,76 @@ import pandas as pd
 
 
 class SpatioTemporalData(InMemoryDataset, ABC):
+    """
+        SpatioTemporalData
+        ==================
+
+        Abstract base class for spatio-temporal graph datasets built on top of
+        ``torch_geometric.data.InMemoryDataset``. Handles sliding-window chunking of
+        raw time-series data into :class:`torch_geometric.data.Data` objects, encoding
+        cyclic timestamps, and optionally resampling dynamic node/edge features to each
+        window.
+
+        Subclasses must implement :meth:`get_raw_data`, which returns the raw adjacency
+        information, time-series tensor, validity mask, static node features, dynamic
+        node features, and timestamps.
+
+        Parameters
+        ----------
+        root : str
+            Root directory where the dataset is stored. Processed files are written to
+            ``<root>/<name>/processed/``.
+        name : str
+            Identifier for the dataset. Used as the processed-file name and as a
+            subdirectory under ``root``.
+        device : str, optional
+            PyTorch device string (e.g. ``'cpu'``, ``'cuda:0'``) onto which the
+            processed dataset is mapped when loaded. Default: ``'cpu'``.
+        history : int, optional
+            Number of time steps used as input (lookback window). Default: ``12``.
+        horizon : int, optional
+            Number of time steps to predict (forecast horizon). Default: ``12``.
+        stride : int, optional
+            Step size between consecutive windows. Default: ``1``.
+
+        Attributes
+        ----------
+        data : torch_geometric.data.Data
+            Collated dataset object (set after ``__init__`` completes).
+        slices : dict
+            Slice dictionary for indexing into ``data`` (set after ``__init__``
+            completes).
+        raw_data : torch.Tensor
+            Full raw time-series tensor of shape ``(T, N, 1)`` (set after
+            ``__init__`` completes).
+
+        Notes
+        -----
+        The processed file is cached on disk.  Delete
+        ``<root>/<name>/processed/<name>.pt`` to force re-processing.
+
+        Each :class:`~torch_geometric.data.Data` object produced by :meth:`process`
+        contains the following attributes:
+
+        * ``x``          - Input node features,  shape ``(N, history, 1)``.
+        * ``y``          - Target node features, shape ``(N, horizon, 1)``.
+        * ``mask_in``    - Validity mask for the input window, shape ``(N, history, 1)``.
+        * ``mask_out``   - Validity mask for the target window, shape ``(N, horizon, 1)``.
+        * ``edge_index`` - Graph connectivity (COO format).  For static graphs this is a
+        single ``LongTensor``; for dynamic graphs it is a list of per-step tensors.
+        * ``edge_attr``  - Edge weights / attributes, matching the structure of
+        ``edge_index``.
+        * ``edge_index_out`` *(dynamic graphs only)* - Per-step edge indices for the
+        forecast horizon.
+        * ``edge_attr_out``  *(dynamic graphs only)* - Per-step edge attributes for the
+        forecast horizon.
+        * ``poi_static`` - Static POI node features, shape ``(N, F_poi)``.
+        * ``enc_ts``     - Cyclic timestamp encodings (sin/cos of hour, day, month),
+        shape ``(N, history + horizon, 6)``.
+        * ``x_dyn``      - Dynamic node features resampled to the window, shape
+        ``(N, history + horizon, F_dyn)``; empty tensor when no dynamic features are
+        provided.
+    """
     def __init__(
         self, 
         root,
