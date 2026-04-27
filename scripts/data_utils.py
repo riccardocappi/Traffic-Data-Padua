@@ -51,6 +51,19 @@ def plot_heatmap(obs_df, aggr_by = "month", aggr_method="sum"):
     plt.show()
     
     
+def box_plot_veh_counts(obs_df, aggr_by="hour", aggr_method="sum"):
+    _, df_by = aggr_df_by(obs_df, aggr_by, aggr_method)
+    df_long = df_by.melt(id_vars=aggr_by, var_name='sensor', value_name='count')
+
+    plt.figure(figsize=(10, 5))
+    sns.boxplot(data=df_long, x=aggr_by, y='count', flierprops={"marker": ""})
+
+    plt.title(f"Distribution of Vehicle Counts per {aggr_by}")
+    plt.xlabel(f"{aggr_by}")
+    plt.ylabel("Vehicle Count")
+    plt.tight_layout()
+    plt.show()
+    
     
 def plot_hourly_total(obs_df, aggr_method="sum", save_path = None):
 
