@@ -76,7 +76,10 @@ class TrafficData(SpatioTemporalData):
         dyn_adj = False,
         flow_threshold = 0.0,
         use_avg_travel_times = False,
-        nan_values_handling = "zero"
+        nan_values_handling = "zero",
+        radius = 500,
+        k_zones = 5,
+        k_km = 2
     ):
 
         self.zero_run_threshold = zero_run_threshold
@@ -89,6 +92,10 @@ class TrafficData(SpatioTemporalData):
         
         self.flow_adj = flow_adj
         self.dyn_adj = dyn_adj
+        
+        self.radius = radius
+        self.k_zones = k_zones
+        self.k_km = k_km
         
         super().__init__(root, name, device, history, horizon, stride)
     
@@ -111,7 +118,7 @@ class TrafficData(SpatioTemporalData):
         if not self.flow_adj:
             edges_shp = self.get_dist_connectivity(
                 meta_json=nodes_json,
-                k = 2
+                k = self.k_km
             )
         else:
             edges_shp = self.get_flow_connectivity(
@@ -121,12 +128,12 @@ class TrafficData(SpatioTemporalData):
                 threshold=self.flow_threshold
             )
         
-        poi_static = self.get_poi_feature_matrix(nodes_shp, radius=500)
+        poi_static = self.get_poi_feature_matrix(nodes_shp, radius=self.radius)
         
-        zones_pop = self.get_top_k_zones_pop(nodes_shp, k = 5)
-        zones_pop = zones_pop[["id", "POP21_1", "POP21_2", "POP21_3", "POP21_4", "POP21_5"]]
+        zones_pop = self.get_top_k_zones_pop(nodes_shp, k = self.k_zones)
+        zones_pop = zones_pop[["id", "pop_1", "pop_2", "pop_3", "pop_4", "pop_5"]]
         
-        roads = self.get_road_types_lengths(nodes_shp, radius_m=500)
+        roads = self.get_road_types_lengths(nodes_shp, radius_m=self.radius)
         roads = roads.drop(columns = ["reg_dir", "latitude", "longitude", "geometry"])
         
         time_series_df, nodes_shp, poi_static, zones_pop, roads = self.align_node_ids(time_series_df, nodes_shp, poi_static, zones_pop, roads)
@@ -145,11 +152,11 @@ class TrafficData(SpatioTemporalData):
         X_static = torch.cat([X_poi, X_zones, X_roads], dim=-1)
         
         weather_data = self.get_weather_data() 
-        weather_data["TIMESTAMP"] = pd.to_datetime(weather_data["TIMESTAMP"])
-        weather_data = weather_data.sort_values("TIMESTAMP")
+        # weather_data["timestamp"] = pd.to_datetime(weather_data["timestamp"])
+        weather_data = weather_data.sort_values("timestamp")
         N = X.shape[1]
-        time_ms = (weather_data["TIMESTAMP"].astype("int64") // 10**6).to_numpy()
-        prec = torch.tensor(weather_data["PREC"].to_numpy(), dtype=torch.float32)
+        time_ms = (weather_data["timestamp"].astype("int64") // 10**6).to_numpy()
+        prec = torch.tensor(weather_data["prec"].to_numpy(), dtype=torch.float32)
         prec_expanded = prec.view(-1, 1, 1).expand(-1, N, 1)    # Shape (T_hour, N, 1)
         prec_by_time = dict(zip(time_ms, prec_expanded))
         
@@ -182,16 +189,16 @@ class TrafficData(SpatioTemporalData):
                 t_ms = int(pd.to_datetime(tbin).timestamp() * 1000)
                 
                 if t_prev != -1:    # Handling missing time_bin
+                    N = len(node_id_map)
+                    identity_edge_index = torch.arange(N, dtype=torch.long).unsqueeze(0).expand(2, -1)
+                    identity_edge_attr = torch.zeros(N, 1, dtype=torch.float32)
                     t_gap = t_prev + HOUR_MS
                     while t_gap < t_ms:
-                        # print(t_gap)
-                        adj[t_gap] = (last_edge_idx, last_edge_attr)
+                        adj[t_gap] = (identity_edge_index, identity_edge_attr)
                         t_gap += HOUR_MS
 
                 adj[t_ms] = (current_edge_idx, current_edge_attr)
                 t_prev = t_ms
-                last_edge_idx = current_edge_idx
-                last_edge_attr = current_edge_attr
         
         return adj, X, mask, X_static, prec_by_time, timestamps
         
@@ -231,10 +238,10 @@ class TrafficData(SpatioTemporalData):
         
         if not dyn_adj:
             transition_probs = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/transition_probs.csv")
-            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time.csv")
+            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time.csv", index_col=0)
         else:
             transition_probs = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/transition_probs_hour.csv")
-            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time_hour.csv")
+            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time_hour.csv", index_col=0)
         
         assert avg_travel_times[["from", "to"]].to_numpy().tolist() == transition_probs[["from", "to"]].to_numpy().tolist()
         
@@ -319,21 +326,11 @@ class TrafficData(SpatioTemporalData):
             _, indices = tree.query(src_points, k=k_neighbors)
             return indices # Shape (N, K)
         
-        zone_file_path = "./data/prod/pre-process/context/SIT_SEZIONI_2021/SIT_SEZIONI_2021.shp"
-        pop_file_path = "./data/prod/pre-process/context/SIT_SEZIONI_2021/residenti_x_sezioneISTAT-2021.csv"
-        
-        zones = gpd.read_file(zone_file_path)
-        residents = pd.read_csv(pop_file_path, delimiter=";")
-        
-        zones_filtered = zones[zones['SEZ21'].isin(residents['Sezioni 2021 attribuite'])].copy()
-        mapping = residents.set_index("Sezioni 2021 attribuite")["Somma - Residenti"]
-        zones_filtered["POP21"] = zones_filtered["SEZ21"].map(mapping).fillna(zones_filtered["POP21"])
+        zones = gpd.read_file("./data/prod/pre-process/context/demographic/zones_population.shp")
         meta_gdf_proj = meta_gdf.to_crs(zones.crs)
-        
-        zones_subset = zones.copy()[['POP21', 'SHAPE_Area', 'geometry']]
 
-        zones_subset["centroid"] = zones_subset.geometry.centroid
-        centroids = zones_subset.set_geometry("centroid")[["centroid", "POP21"]]
+        zones["centroid"] = zones.geometry.centroid
+        centroids = zones.set_geometry("centroid")[["centroid", "population"]]
 
         centroid_coords = np.vstack([
             centroids.geometry.y.values,
@@ -348,11 +345,11 @@ class TrafficData(SpatioTemporalData):
         
         nearest_idx = get_nearest(point_coords, centroid_coords, k_neighbors=k)
 
-        pop21_array = centroids["POP21"].values
+        pop21_array = centroids["population"].values
         nearest_pop21 = pop21_array[nearest_idx]
         
         for i in range(k):
-            meta_gdf_proj[f"POP21_{i+1}"] = nearest_pop21[:, i]
+            meta_gdf_proj[f"pop_{i+1}"] = nearest_pop21[:, i]
         
         meta_gdf_proj["geometry"] = meta_gdf["geometry"]
         
@@ -405,36 +402,10 @@ class TrafficData(SpatioTemporalData):
     
     
     def get_weather_data(self):
-        def classify_weather(row):
-            precip = row["PREC"]
-
-            if precip == 0:
-                return "Sunny"
-            elif precip < 5:
-                return "Rainy"
-            else:
-                return "Strongly rainy"
-
-        file_path = "./data/prod/pre-process/context/arpav_pd.csv"
-        weather_var = pd.read_csv(file_path, delimiter=";")
-        weather_var["TIMESTAMP"] = pd.to_datetime(
-            weather_var[["ANNO", "MESE", "GIORNO", "ORA"]].rename(
-                columns={"ANNO": "year", "MESE": "month", "GIORNO": "day", "ORA": "hour"}
-                )
-        )
-
-        weather_var["TIMESTAMP"] = weather_var["TIMESTAMP"].dt.tz_localize("Etc/GMT-1")
-        weather_var["TIMESTAMP"] = weather_var["TIMESTAMP"].dt.tz_convert("Europe/Rome")     
-           
-        weather_var.drop(columns=["ANNO", "MESE", "GIORNO", "ORA"], inplace=True)
-    
-        weather_var["WEATHER_CLASS"] = weather_var.apply(classify_weather, axis=1)
-
+        weather_var = pd.read_csv("./data/prod/pre-process/context/weather.csv", parse_dates=["timestamp"])
+        weather_var["timestamp"] = pd.to_datetime(weather_var["timestamp"].values, utc=True).tz_convert("Europe/Rome")
+        
         return weather_var
-    
-    # def get_weather_data(self):
-    #     weather_data = pd.read_csv("./data/prod/pre-process/context/open-meteo-45.40N11.88E18m.csv")
-    #     return weather_data
     
     
     def get_mask(self, df, zero_run_threshold = 12):
