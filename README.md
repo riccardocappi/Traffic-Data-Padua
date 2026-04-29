@@ -17,22 +17,6 @@
 - traffic_cams_by_junc folder: Contains times series of traffic cams clustered by position.
 
 
-
-## Torch Data Loaders
-The data_loaders folder contains the code of Pytorch Geometric Data Loaders. Time series data are loaded with a sliding window style, thats is, each entry of the loader contains: 
-    
-    - x: a given history of observations, let's say 1 hour (6 10-min steps).
-
-    - y: the prediction horizon, let's say the next hour after x. These are the values to be predicted by the model.
-
-    - edge_index and edge_attrs: graph topology
-
-    - masks: binary masks for unusual long series of consecutive zero measurements (dynamically created).
-
-    - Other fields related to contextual information for each node.
-
-Data Loaders are saved to the given root-name path.
-
 # Requirements
 - Python 3.12.0
 - CUDA 11.8
