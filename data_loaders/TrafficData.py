@@ -9,6 +9,7 @@ from sklearn.neighbors import BallTree
 import osmnx as ox
 import json
 from shapely.geometry import LineString
+from pathlib import Path
 
 
 class TrafficData(SpatioTemporalData):
@@ -112,7 +113,7 @@ class TrafficData(SpatioTemporalData):
         elif self.nan_values_handling == "rm":
             time_series_df = time_series_df.dropna(axis=0, how="any")
         
-        timestamps_ms = pd.to_datetime(time_series_df.index).astype(int) // 10**6
+        # timestamps_ms = pd.to_datetime(time_series_df.index).astype(int) // 10**6
         timestamps = pd.to_datetime(time_series_df.index)
         
         if not self.flow_adj:
@@ -176,9 +177,6 @@ class TrafficData(SpatioTemporalData):
             t_prev = -1
             HOUR_MS = 3600000
             
-            last_edge_idx = None
-            last_edge_attr = None
-            
             for tbin, group in edges_shp.groupby("time_bin"):
                 src = group["source"].map(node_id_map).values
                 dst = group["target"].map(node_id_map).values
@@ -189,9 +187,9 @@ class TrafficData(SpatioTemporalData):
                 t_ms = int(pd.to_datetime(tbin).timestamp() * 1000)
                 
                 if t_prev != -1:    # Handling missing time_bin
-                    N = len(node_id_map)
-                    identity_edge_index = torch.arange(N, dtype=torch.long).unsqueeze(0).expand(2, -1)
-                    identity_edge_attr = torch.zeros(N, 1, dtype=torch.float32)
+                    N_nodes = len(node_id_map)
+                    identity_edge_index = torch.arange(N_nodes, dtype=torch.long).unsqueeze(0).expand(2, -1)
+                    identity_edge_attr = torch.ones(N_nodes, 1, dtype=torch.float32)
                     t_gap = t_prev + HOUR_MS
                     while t_gap < t_ms:
                         adj[t_gap] = (identity_edge_index, identity_edge_attr)
@@ -204,9 +202,10 @@ class TrafficData(SpatioTemporalData):
         
     
     def get_sensors_data(self):
-        f_time_series = "./data/prod/pre-process/traffic_cams_by_junc/pd_time_series_group_by_junc.csv"
-        f_shp = "./data/prod/pre-process/traffic_cams_by_junc/gpd/traffic_cam_metadata_by_junc.shp"
-        f_json = "./data/prod/pre-process/traffic_cams_by_junc/traffic_cam_metadata_by_junc.json"
+        base = Path("./data/prod/pre-process/traffic_cams_by_junc")
+        f_time_series = base / "pd_time_series_group_by_junc.csv"
+        f_shp = base / "gpd" / "traffic_cam_metadata_by_junc.shp"
+        f_json = base / "traffic_cam_metadata_by_junc.json"
 
         time_series_df = pd.read_csv(f_time_series, index_col=0)
         time_series_df.index = pd.to_datetime(time_series_df.index, utc=True).tz_convert("Europe/Rome")
@@ -218,7 +217,7 @@ class TrafficData(SpatioTemporalData):
     
     
     def get_dist_connectivity(self, meta_json, k = 2):
-        graph_path = "./data/prod/pre-process/road_network/osmnx.graphml"
+        graph_path = Path("./data/prod/pre-process/road_network/osmnx.graphml")
         G_road = ox.load_graphml(graph_path)
         
         _, G = get_adj_matrix(
@@ -235,19 +234,20 @@ class TrafficData(SpatioTemporalData):
 
 
     def get_flow_connectivity(self, meta_json, dyn_adj=False, use_avg_travel_times = False, threshold=0.1):
-        
+        base = Path("./data/prod/pre-process/plate_hash_by_junc")
         if not dyn_adj:
-            transition_probs = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/transition_probs.csv")
-            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time.csv", index_col=0)
+            transition_probs = pd.read_csv(base / "transition_probs.csv")
+            avg_travel_times = pd.read_csv(base / "avg_travel_time.csv", index_col=0)
         else:
-            transition_probs = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/transition_probs_hour.csv")
-            avg_travel_times = pd.read_csv("./data/prod/pre-process/plate_hash_by_junc/avg_travel_time_hour.csv", index_col=0)
+            transition_probs = pd.read_csv(base / "transition_probs_hour.csv")
+            avg_travel_times = pd.read_csv(base / "avg_travel_time_hour.csv", index_col=0)
         
         assert avg_travel_times[["from", "to"]].to_numpy().tolist() == transition_probs[["from", "to"]].to_numpy().tolist()
         
         source_adj = transition_probs if not use_avg_travel_times else avg_travel_times
         weight_col = "P_ij" if not use_avg_travel_times else "mean"
-        source_adj["time_bin"] = pd.to_datetime(source_adj["time_bin"].values, utc=True).tz_convert("Europe/Rome")
+        if dyn_adj:
+            source_adj["time_bin"] = pd.to_datetime(source_adj["time_bin"].values, utc=True).tz_convert("Europe/Rome")
         
         if self.nan_values_handling == "zero":
             source_adj = source_adj.fillna(0)
@@ -256,7 +256,7 @@ class TrafficData(SpatioTemporalData):
         
         edges = (
             source_adj
-                .loc[transition_probs["P_ij"] > threshold]      # keep rows above threshold
+                .loc[(transition_probs["P_ij"] > threshold) & (transition_probs["count_ij"] > 3)]      # keep rows above threshold
                 .rename(columns={
                     "from": "source",
                     "to": "target",
@@ -288,18 +288,18 @@ class TrafficData(SpatioTemporalData):
     
     
     def get_poi_feature_matrix(self, meta_gdf, radius = 500):
-        df_pois = pd.read_csv("./data/prod/pre-process/context/filtered_grouped_poi.csv", index_col=0)
+        df_pois = pd.read_csv(Path("./data/prod/pre-process/context/filtered_grouped_poi.csv"), index_col=0)
         gdf_pois = gpd.GeoDataFrame(
             df_pois.drop(columns=["id"]),
             geometry=gpd.points_from_xy(df_pois.longitude, df_pois.latitude),
             crs="EPSG:4326"
         )
 
-        meta_gdf = meta_gdf.to_crs(epsg=3003) # To express distance in meters
+        meta_gdf_proj = meta_gdf.to_crs(epsg=3003) # To express distance in meters
         gdf_pois = gdf_pois.to_crs(epsg=3003)
         
-        meta_gdf["buffer"] = meta_gdf.geometry.buffer(radius)
-        gdf_buffers = meta_gdf[["id", "buffer"]].set_geometry("buffer")
+        meta_gdf_proj["buffer"] = meta_gdf_proj.geometry.buffer(radius)
+        gdf_buffers = meta_gdf_proj[["id", "buffer"]].set_geometry("buffer")
 
         join_result = gpd.sjoin(
             gdf_pois,
@@ -312,7 +312,7 @@ class TrafficData(SpatioTemporalData):
             join_result.groupby(["id", "category_level_0"])
             .size()
             .unstack(fill_value=0)
-            .reindex(meta_gdf["id"], fill_value=0)
+            .reindex(meta_gdf_proj["id"], fill_value=0)
             .reset_index()
         )
             
@@ -326,7 +326,7 @@ class TrafficData(SpatioTemporalData):
             _, indices = tree.query(src_points, k=k_neighbors)
             return indices # Shape (N, K)
         
-        zones = gpd.read_file("./data/prod/pre-process/context/demographic/zones_population.shp")
+        zones = gpd.read_file(Path("./data/prod/pre-process/context/demographic/zones_population.shp"))
         meta_gdf_proj = meta_gdf.to_crs(zones.crs)
 
         zones["centroid"] = zones.geometry.centroid
@@ -363,7 +363,7 @@ class TrafficData(SpatioTemporalData):
         highway_col="highway"
     ):
         
-        graph_path = "./data/prod/pre-process/road_network/osmnx.graphml"
+        graph_path = Path("./data/prod/pre-process/road_network/osmnx.graphml")
         G = ox.load_graphml(graph_path)
         
         sensors_enriched = meta_gdf.copy()
@@ -402,7 +402,7 @@ class TrafficData(SpatioTemporalData):
     
     
     def get_weather_data(self):
-        weather_var = pd.read_csv("./data/prod/pre-process/context/weather.csv", parse_dates=["timestamp"])
+        weather_var = pd.read_csv(Path("./data/prod/pre-process/context/weather.csv"), parse_dates=["timestamp"])
         weather_var["timestamp"] = pd.to_datetime(weather_var["timestamp"].values, utc=True).tz_convert("Europe/Rome")
         
         return weather_var
