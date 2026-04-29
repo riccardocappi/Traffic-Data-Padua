@@ -55,7 +55,9 @@ conda activate traffic_data_pd
 ```
 
 ### 3. Install requirements
+```bash
 source install_new.sh
+```
 
 # Usage Notes
 
