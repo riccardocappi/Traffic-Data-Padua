@@ -10,6 +10,7 @@ import osmnx as ox
 import json
 from shapely.geometry import LineString
 from pathlib import Path
+from warnings import warn
 
 
 class TrafficData(SpatioTemporalData):
@@ -86,6 +87,9 @@ class TrafficData(SpatioTemporalData):
         self.zero_run_threshold = zero_run_threshold
         
         assert nan_values_handling in ["zero", "rm"], "nan_values_handling must be either 'zero' (replace NaNs with zeros) or 'rm' (remove rows with NaNs)."
+        assert flow_adj or not dyn_adj, "Dynamic adjacency is only supported with flow adjacency."
+        if flow_adj and (not dyn_adj):
+            warn("Using static flow adjacency. Statistics are aggregated over the first 80% of observed period. Split train/test data accordingly.")
         
         self.nan_values_handling = nan_values_handling
         self.flow_threshold = flow_threshold
