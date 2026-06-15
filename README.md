@@ -78,7 +78,7 @@ print(sample.edge_index)     # graph connectivity
 | `dyn_adj` | `bool` | `False` | Use time-varying (hourly) adjacency matrices; requires `flow_adj=True` |
 | `flow_threshold` | `float` | `0.0` | Minimum transition probability `P_ij` for an edge to be included |
 | `use_avg_travel_times` | `bool` | `False` | Use mean travel time as edge weight instead of `P_ij` |
-| `nan_values_handling` | `str` | `'zero'` | `'zero'` replaces NaNs with 0; `'rm'` drops any timestep containing a NaN |
+| `nan_values_handling` | `str` | `'rm'` | `'zero'` replaces NaNs with 0; `'rm'` drops any timestep containing a NaN |
 | `radius` | `int` | `500` | Radius in metres for POI and road-type feature enrichment |
 | `k_zones` | `int` | `5` | Number of nearest population zones per sensor node |
 | `k_km` | `int` | `2` | Distance threshold (km) for proximity-based adjacency (`flow_adj=False`) |
