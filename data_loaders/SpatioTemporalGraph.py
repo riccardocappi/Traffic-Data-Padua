@@ -84,7 +84,8 @@ class SpatioTemporalData(InMemoryDataset, ABC):
         device='cpu',
         history = 12,
         horizon = 12,
-        stride=1
+        stride=1,
+        ensure_continuity = True
     ):
         
         self.name = name
@@ -92,6 +93,7 @@ class SpatioTemporalData(InMemoryDataset, ABC):
         self.horizon = horizon
         self.history = history
         self.stride = stride
+        self.ensure_continuity = ensure_continuity
         super().__init__(root)
         self.data, self.slices, self.raw_data = torch.load(
             self.processed_paths[0],
@@ -118,20 +120,32 @@ class SpatioTemporalData(InMemoryDataset, ABC):
 
     def process(self):
         print('Building the dataset...')
-        
+
         adj, raw_data, mask, static_features, dyn_dict, timestamps = self.get_raw_data()
         first_ts = timestamps[0]
-        
+
         if mask is None:
             mask = torch.ones_like(raw_data)
-        
+
         input_length = self.history
         target_length = self.horizon
         total_seq_len = input_length + target_length
-        
+
+        # Detect holes introduced by dropna: mark positions where the gap to the
+        # previous timestamp exceeds the regular sampling interval.
+        if len(timestamps) > 1:
+            deltas = timestamps[1:] - timestamps[:-1]
+            expected_step = pd.Series(deltas).mode()[0]
+            is_consecutive = np.array([True] + [d == expected_step for d in deltas])
+        else:
+            is_consecutive = np.ones(len(timestamps), dtype=bool)
+
         data = []
-        
+
         for ts in range(0, raw_data.size(0) - total_seq_len + 1, self.stride):
+            # Skip windows that span a temporal gap in the time series.
+            if (not is_consecutive[ts + 1 : ts + total_seq_len].all()) and self.ensure_continuity:
+                continue
             
             idx_input = slice(ts, ts + input_length)
             idx_target = slice(ts + input_length, ts + total_seq_len)

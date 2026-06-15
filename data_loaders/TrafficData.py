@@ -78,7 +78,7 @@ class TrafficData(SpatioTemporalData):
         dyn_adj = False,
         flow_threshold = 0.0,
         use_avg_travel_times = False,
-        nan_values_handling = "zero",
+        nan_values_handling = "rm",
         radius = 500,
         k_zones = 5,
         k_km = 2
