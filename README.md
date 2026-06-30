@@ -117,3 +117,20 @@ loader = DataLoader(dataset, batch_size=32, shuffle=True)
 for batch in loader:
     print(batch)
 ```
+
+# Citing
+
+If you use this dataset in your work, please cite:
+
+```bibtex
+@article{cappi2026city,
+  title={A City-Scale Dataset of Traffic Flows, Travel Times, and Urban Context},
+  author={Cappi, Riccardo and Luca, Massimiliano and Fontolan, Pietro and Navarin, Nicol{\`o} and Lepri, Bruno and Sperduti, Alessandro},
+  journal={arXiv preprint arXiv:2605.18782},
+  year={2026}
+}
+```
+
+# License
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](LICENSE).
