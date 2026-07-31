@@ -39,6 +39,13 @@ conda activate traffic_data_pd
 ```
 
 ### 3. Install requirements
+
+Option A — install from `requirements.txt` (pins the exact versions used in development, including the CUDA 11.8 wheel indexes for `torch`/`torch-scatter`/`torch-sparse`):
+```bash
+pip install -r requirements.txt
+```
+
+Option B — run the install script, which installs the same packages step by step (useful if you need a different CUDA version, since it lets you edit `PYTORCH_VERSION`/`TORCH_GEOMETRIC_VERSION` before installing):
 ```bash
 source install_new.sh
 ```
